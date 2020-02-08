@@ -15,7 +15,7 @@ digraph wardleyMap {
   //node[fillcolor="#C8E6C9" style="filled" fontcolor="black"];
   //contentful_to_neo4j[label="Contentful to Neo4j"]
   node[shape=none]
-  visble[rank="min"]
+  visible[rank="min"]
   invisible[rank="max"]
 
   node[shape=box]
@@ -27,10 +27,8 @@ digraph wardleyMap {
   db2
 
 
-  
-
   subgraph value {
-    visble -> invisible;
+    visible -> invisible;
     ui -> database;
     ui2 -> mq -> proc2 -> db2;
   }
