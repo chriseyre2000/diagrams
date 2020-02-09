@@ -1,0 +1,40 @@
+digraph architecture {
+  rankdir=LR;
+
+  // Storage - #303F9F (dark blue)
+  node[fillcolor="#303F9F" style="filled" fontcolor="white"];
+  database[label="DB"]; cache[label="Redis"];
+  
+  // Client-side Apps - #FFEB3B (yellow)
+  node[fillcolor="#FFEB3B" style="filled" fontcolor="black"];
+  front_end[label="Front-end App"]; extension[label="Browser Extension"];
+  
+  // Microservices - #C8E6C9 (light green)
+  node[fillcolor="#C8E6C9" style="filled" fontcolor="black"];
+  photos_ms[label="Photos MS"]; chats_ms[label="Chats MS"]; friends_ms[label="Friends MS"];
+  
+  // API Gateways - #FFCCBC (light orange)
+  node[fillcolor="#FFCCBC" style="filled" fontcolor="black"];
+  auth_api[label="Auth API"]; my_app_api[label="Main API"];
+  
+  // 3rd-party APIs - #CFD8DC (light grey)
+  node[fillcolor="#CFD8DC" style="filled" fontcolor="black"];
+  facebook_api[label="Facebook API"];
+  
+  subgraph client_side_apps {
+      front_end -> {auth_api, my_app_api};
+      extension -> {auth_api, my_app_api};
+      
+      {rank=same; front_end, extension, auth_api};
+  }
+  
+  subgraph api_gateways {
+      my_app_api -> {photos_ms, chats_ms, friends_ms};
+  }
+  
+  subgraph microservices {
+      photos_ms -> {database};
+      chats_ms -> {database, cache};
+      friends_ms -> {database, facebook_api};
+  }
+}

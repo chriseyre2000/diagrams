@@ -1,28 +1,66 @@
 digraph wardleyMap {
   rankdir=TB;
-
+  splines=false;
 
   node[shape=none]
   visible
   invisible
 
   node[shape=box]
+  something[style = invis]
+  custom[style = invis]
   ui
-  database
   ui2
+  database
   mq
   proc2
   db2
+  aproduct[style = invis]
+  acommodity[style = invis]
+  
 
-
-  subgraph axis {
+  subgraph cluster_axis {
     visible -> invisible[dir=both,minlen=5];
+    graph[style=invis]
   }
 
-  subgraph value {
-    ui -> database;
-    ui2 -> mq -> proc2 -> db2;
+  subgraph cluster_genesis {
+    label="Genesis";
+    graph[style=dotted];
+    something
   }
 
+  subgraph cluster_custom {
+    label="Custom Built";
+    graph[style=dotted];
+    
+    subgraph a {
+      ui
+    }
 
+    subgraph b {
+      ui2 -> proc2[style=invis,minlen=3]
+    }
+    
+    
+  }
+
+  subgraph cluster_product {
+    label="Product";
+    graph[style=dotted];
+    aproduct -> database[style=invis];
+    aproduct -> mq[style=invis,minlen=2];
+    aproduct -> db2[style=invis,minlen=4];
+  }
+
+  subgraph cluster_commodity {
+    label="Commodity";
+    graph[style=dotted];
+    acommodity
+  }
+
+  ui -> database[constraint=false];
+  ui2 -> mq[constraint=false];
+  mq -> proc2[constraint=false];
+  proc2 -> db2[constraint=false]; 
 }
