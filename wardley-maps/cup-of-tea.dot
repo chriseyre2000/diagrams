@@ -1,0 +1,90 @@
+digraph wardleyMap {
+  newrank=true;
+
+  node[shape=none]
+  visible
+  invisible
+
+  node[shape=box]
+  //Genesis
+  genesis[style = invis]
+  genesis2[style = invis]
+
+  //Custom
+  custom[style = invis]
+  custom2[style = invis]
+  kettle
+
+  //Product
+  product[style = invis]
+  product2[style = invis]
+  business
+  cupOfTea[label="Cup of Tea"]
+
+  //Commodity
+  commodity[style = invis]
+  public
+  hotWater
+  cup
+  tea
+  
+  genesis -> custom[style=invis,constraint=false]
+  custom -> product[style=invis,constraint=false]
+  product -> commodity[style=invis,constraint=false]
+
+  
+  subgraph cluster_0axis {
+    label = "Axis"
+    visible -> invisible[dir=both,minlen=5];
+    graph[style=solid]
+    taillabel = "invisible"
+  }
+
+  subgraph cluster_1genesis {
+    label="Genesis";
+    graph[style=dotted];
+    genesis->genesis2[style=invis,minlen=5]
+  }
+
+  subgraph cluster_2custom {
+    label="Custom Built";
+    graph[style=dotted];   
+    custom -> custom2[style=invis,minlen=5]
+    custom->kettle[style=invis,minlen=4]    
+  }
+
+  subgraph cluster_3product{
+    label="Product";
+    graph[style=dotted];
+    product -> product2[style=invis,minlen=5]
+    business -> cupOfTea;
+    hotWater -> kettle
+  }
+
+  subgraph cluster_4commodity{
+    label="Commodity";
+    graph[style=dotted];
+    hotWater[label="Hot Water"]
+    commodity
+    commodity -> {cup, tea}[style=invis,minlen=2]    
+    commodity -> hotWater[style=invis,minlen=3]
+    commodity -> power[style=invis,minlen=5]
+    public
+    cup
+    tea
+    water
+  }
+  
+  custom -> product[style=invis,constraint=false]
+  
+  public -> cupOfTea[constraint=false]
+  cupOfTea -> {cup, tea, hotWater}
+  //
+  kettle -> power[constraint=false]
+  hotWater -> water
+
+  //{rank=same visible custom product }
+  
+  
+}
+
