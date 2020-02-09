@@ -3,13 +3,13 @@ digraph wardleyMap {
 
 
   node[shape=none]
-  visible[rank="min"]
-  invisible[rank="max"]
+  visible
+  invisible
 
   node[shape=box]
-  ui[rank="min"]
+  ui
   database
-  ui2[rank="min"]
+  ui2
   mq
   proc2
   db2
