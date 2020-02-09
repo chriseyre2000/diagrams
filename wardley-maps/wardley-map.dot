@@ -1,19 +1,7 @@
 digraph wardleyMap {
   rankdir=TB;
 
-  // Client-side Apps - #FFEB3B (yellow)
-  //node[fillcolor="#FFEB3B" style="filled" fontcolor="black"];
 
-
-  // Storage - #303F9F (dark blue)
-  //node[fillcolor="#303F9F" style="filled" fontcolor="white"];
-  //contentful[label="Contentful Space"];
-  //neo[label="Neo4j"];
-  
-
-  // Microservices - #C8E6C9 (light green)
-  //node[fillcolor="#C8E6C9" style="filled" fontcolor="black"];
-  //contentful_to_neo4j[label="Contentful to Neo4j"]
   node[shape=none]
   visible[rank="min"]
   invisible[rank="max"]
@@ -27,12 +15,14 @@ digraph wardleyMap {
   db2
 
 
+  subgraph axis {
+    visible -> invisible[dir=both,minlen=5];
+  }
+
   subgraph value {
-    visible -> invisible;
     ui -> database;
     ui2 -> mq -> proc2 -> db2;
   }
 
-  
 
 }
